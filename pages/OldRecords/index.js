@@ -2,7 +2,6 @@ import RecordCard from "@/components/RecordCard";
 import React, { useState } from "react";
 import web3 from "../../ethereum/web3";
 import Patient from "../../ethereum/Patient";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 
 const OldRecords = () => {
@@ -34,8 +33,17 @@ const OldRecords = () => {
   };
 
   const recordDate = (timestamp) => {
-    const date = new Date(timestamp * 1000);
-    return date.toLocaleString();
+    // const date = new Date(timestamp.toLocaleString() * 1000);
+    // return date.toLocaleString();
+
+    try {
+      const date = new Date(timestamp * 1000);
+      return date.toDateString();
+    } catch (error) {
+      console.log("====================================");
+      console.log(error);
+      console.log("====================================");
+    }
   };
  
 
@@ -88,7 +96,7 @@ const OldRecords = () => {
               <RecordCard
                 key={index}
                 id={index}
-                date={recordDate(record.date)}
+                date={record.date}
                 IPFS_Hash={record.IPFS_Hash}
               />
               
